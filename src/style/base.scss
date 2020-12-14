@@ -24,13 +24,17 @@ ol {
   cursor: pointer;
 }
 
+.el-input>input{
+  border:5px;
+  border-radius: 20px;
+}
 .el-tabs__active-bar {
-  background-color: #c3473a;
+  background-color: #efca35;
 }
 
 .el-tabs__item:hover,
 .el-tabs__item.is-active {
-  color: #c3473a;
+  color: #efca35;
 }
 
 .el-table th > .cell {
@@ -41,8 +45,11 @@ ol {
   margin-top: 50px;
   text-align: center;
 }
+.el-pagination.is-background .el-pager li:hover{
+  color: #ba9500!important;
+}
 .el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #dd6d60;
+  background-color: #efca35;
 }
 .el-table {
   border-bottom: none;
@@ -87,7 +94,7 @@ ol {
     }
     .icon-mv {
       padding-left: 5px;
-      color: #dd6d60;
+      color: #efca35;
     }
   }
   .img-wrap {
@@ -106,7 +113,7 @@ ol {
       transform: translate(-50%, -50%);
       width: 25px;
       height: 25px;
-      color: #dd6d60;
+      color: #efca35;
       font-size: 12px;
       border-radius: 50%;
       display: flex;
@@ -188,7 +195,7 @@ ol {
             bottom: 13px;
             width: 40px;
             height: 40px;
-            color: #dd6d60;
+            color: #efca35;
             font-size: 20px;
             border-radius: 50%;
             display: flex;
@@ -253,7 +260,7 @@ ol {
             transform: translate(-50%, -50%);
             width: 30px;
             height: 30px;
-            color: #dd6d60;
+            color: #efca35;
             text-align: center;
             line-height: 30px;
             border-radius: 50%;
@@ -302,7 +309,7 @@ ol {
             transform: translate(-50%, -50%);
             width: 40px;
             height: 40px;
-            color: #dd6d60;
+            color: #efca35;
             font-size: 20px;
             border-radius: 50%;
             display: flex;
@@ -485,7 +492,7 @@ ol {
               transform: translate(-50%, -50%);
               width: 40px;
               height: 40px;
-              color: #dd6d60;
+              color: #efca35;
               font-size: 20px;
               border-radius: 50%;
               display: flex;
@@ -561,8 +568,8 @@ ol {
           cursor: pointer;
           padding: 5px 20px;
           &.active {
-            color: #dd6d60;
-            background-color: #fcf6f5;
+            color: #efca35;
+            background-color: #f8f5ed;
             border-radius: 20px;
           }
           &::before {
@@ -841,7 +848,7 @@ ol {
         margin-right: 20px;
         cursor: pointer;
         &.active {
-          color: #dd6d60;
+          color: #efca35;
         }
       }
     }
@@ -886,7 +893,7 @@ ol {
               bottom: 13px;
               width: 40px;
               height: 40px;
-              color: #dd6d60;
+              color: #efca35;
               font-size: 20px;
               border-radius: 50%;
               display: flex;
@@ -954,7 +961,7 @@ ol {
           transform: translate(-50%, -50%);
           width: 40px;
           height: 40px;
-          color: #dd6d60;
+          color: #efca35;
           font-size: 20px;
           border-radius: 50%;
           display: flex;
@@ -1028,7 +1035,7 @@ ol {
       margin-right: 20px;
       cursor: pointer;
       &.active {
-        color: #dd6d60;
+        color: #efca35;
       }
     }
   }
@@ -1041,7 +1048,7 @@ ol {
       }
       .icon-mv {
         padding-left: 5px;
-        color: #dd6d60;
+        color: #efca35;
       }
     }
     .img-wrap {
@@ -1060,7 +1067,7 @@ ol {
         transform: translate(-50%, -50%);
         width: 25px;
         height: 25px;
-        color: #dd6d60;
+        color: #efca35;
         font-size: 12px;
         border-radius: 50%;
         display: flex;
@@ -1100,9 +1107,9 @@ ol {
         width: 100%;
         height: 100%;
         &.router-link-active {
-          color: #dd6d60;
+          color: #efca35;
           .iconfont {
-            color: #dd6d60;
+            color: #efca35;
           }
         }
       }
@@ -1135,7 +1142,7 @@ ol {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  background-color: #f9f9f9;
+  background-color: #efca35;
   width: 100%;
   .left-box {
     display: flex;
@@ -1158,7 +1165,7 @@ ol {
           opacity: 1;
         }
         &.icon-home {
-          background-color: #dd6d60;
+          background-color: #efca35;
           border-radius: 50%;
         }
         &.icon-sami-select {

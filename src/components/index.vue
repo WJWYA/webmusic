@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      url:""
+      url:"https://node.kg.qq.com/cgi/fcgi-bin/fcg_get_play_url?shareid=Z-FyqFZ72XM4FZsz"
     };
   }
 };

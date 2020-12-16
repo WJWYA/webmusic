@@ -197,6 +197,7 @@ export default {
     // 切换mv
     toMV(id) {
       this.$router.push(`/mv?id=${id}`);
+      this.$parent.pauseMusic();
     }
   },
   // 侦听器

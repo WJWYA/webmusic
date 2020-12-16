@@ -198,6 +198,7 @@ export default {
   methods: {
     toMV(id){
       this.$router.push(`/mv?id=${id}`)
+      this.$parent.pauseMusic();
     },
     // 获取歌曲评论
     getComments() {

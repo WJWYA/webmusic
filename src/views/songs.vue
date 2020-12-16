@@ -75,6 +75,7 @@ export default {
   methods: {
     toMV(id){
       this.$router.push(`/mv?id=${id}`)
+      this.$parent.pauseMusic();
     },
     getData() {
       topSongs({

@@ -231,6 +231,7 @@ export default {
     },
     toMv(id) {
       this.$router.push(`/mv?id=${id}`);
+      this.$parent.pauseMusic();
     }
   }
 };

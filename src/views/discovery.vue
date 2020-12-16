@@ -80,7 +80,8 @@ export default {
       // mv
       mv:[],
       // 歌曲url
-      songUrl:""
+      songUrl:"",
+      isPlaying : true
     };
   },
   created() {
@@ -100,7 +101,10 @@ export default {
   },
   methods:{
     toMv(id){
-      this.$router.push(`/mv?id=${id}`)
+      this.$parent.pauseMusic();
+      
+      this.$router.push(`/mv?id=${id}`);
+
     },
     toPlayList(id){
       this.$router.push(`/playlist?id=${id}`)

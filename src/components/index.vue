@@ -32,13 +32,14 @@
             排行榜
           </router-link>
         </li>
+       
       </ul>
     </div>
     <div class="main">
       <router-view></router-view>
     </div>
     <div class="player">
-      <audio controls autoplay :src="url" loop></audio>
+      <audio class="audio" controls autoplay :src="url" loop></audio>
     </div>
   </div>
 </template>
@@ -51,6 +52,13 @@ export default {
       activeIndex: 0,
       url:"https://node.kg.qq.com/cgi/fcgi-bin/fcg_get_play_url?shareid=Z-FyqFZ72XM4FZsz"
     };
+  },
+  methods:{
+    pauseMusic(){
+      let audio = document.querySelector('audio');
+      
+      audio.pause();
+    }
   }
 };
 </script>

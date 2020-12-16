@@ -1,3 +1,5 @@
+
+
 <template>
   <div class="result-container" ref="container">
     <div class="title-wrap">
@@ -150,6 +152,7 @@ export default {
     // 去mv页面
     toMV(mvid) {
       this.$router.push(`/mv?id=${mvid}`);
+      this.$parent.pauseMusic();
     },
     // 页码改变
     handleCurrentChange(val) {

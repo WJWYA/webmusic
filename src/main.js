@@ -93,6 +93,10 @@ Vue.filter('formatDuration',(dt)=>{
 Vue.filter('formatTime', (time)=>{
   return moment(time).format('YYYY-MM-DD hh:mm:ss');
 })
+
+Vue.filter('formattime', (time)=>{
+  return moment(time).format('MM月DD日');
+})
 Vue.filter('formatCount',(count)=>{
   if (count / 10000 > 10) {
     return parseInt(count / 10000) + '万';

@@ -26,6 +26,12 @@
             最新MV
           </router-link>
         </li>
+          <li>
+          <router-link to="/ranklist">
+            <span class="iconfont icon-_huabanfuben"></span>
+            排行榜
+          </router-link>
+        </li>
       </ul>
     </div>
     <div class="main">

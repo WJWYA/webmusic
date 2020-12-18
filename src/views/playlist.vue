@@ -42,7 +42,7 @@
             >
               <td>{{ index + 1 }}</td>
               <td>
-                <div class="img-wrap" @click="playMusic(item.id)">
+                <div class="img-wrap" @click="playMusic(item)">
                   <img :src="item.al.picUrl" alt="" />
                   <span class="iconfont icon-play"></span>
                 </div>
@@ -52,7 +52,11 @@
                   <div class="name-wrap">
                     <span>{{ item.name }}</span>
                     <!-- mv图标 -->
-                    <span v-if="item.mv != 0" @click="toMV(item.mv)" class="iconfont icon-mv"></span>
+                    <span
+                      v-if="item.mv != 0"
+                      @click="toMV(item.mv)"
+                      class="iconfont icon-mv"
+                    ></span>
                   </div>
                   <span>{{ item.subTitle }}</span>
                 </div>
@@ -139,22 +143,22 @@
 </template>
 
 <script>
-import { playlistDetail, listComments, hotComments } from '@/api/playlist';
-import { songUrl } from '@/api/discovery';
-import moment from 'moment';
+import { playlistDetail, listComments, hotComments } from "@/api/playlist";
+import { songUrl, songLyric } from "@/api/discovery";
+import moment from "moment";
 export default {
-  name: 'playlist',
+  name: "playlist",
   data() {
     return {
-      activeIndex: '1',
+      activeIndex: "1",
       tableData: [],
-      title: '',
-      avatarUrl: '',
-      coverImgUrl: '',
-      signature: '',
-      nickname: '',
+      title: "",
+      avatarUrl: "",
+      coverImgUrl: "",
+      signature: "",
+      nickname: "",
       tags: [],
-      createTime: '',
+      createTime: "",
       // 热门评论
       hotComments: [],
       // 普通评论
@@ -165,15 +169,18 @@ export default {
       // 页码
       page: 1,
       // 总条数
-      total: 0
+      total: 0,
+      //歌词
+      lrcs: [],
+      allKeys: [],
     };
   },
   filters: {},
   created() {
     const { id } = this.$route.query;
     playlistDetail({
-      id
-    }).then(res => {
+      id,
+    }).then((res) => {
       // window.console.log(res)
       // 歌曲信息
       this.tableData = res.playlist.tracks;
@@ -183,12 +190,12 @@ export default {
       this.signature = res.playlist.creator.signature;
       this.nickname = res.playlist.creator.nickname;
       this.tags = res.playlist.tags;
-      this.createTime = moment(res.playlist.createTime).format('YYYY-MM-DD');
+      this.createTime = moment(res.playlist.createTime).format("YYYY-MM-DD");
     });
     // 获取热门评论
     hotComments({
-      id
-    }).then(res => {
+      id,
+    }).then((res) => {
       this.hotComments = res.hotComments;
     });
 
@@ -196,8 +203,8 @@ export default {
     this.getComments();
   },
   methods: {
-    toMV(id){
-      this.$router.push(`/mv?id=${id}`)
+    toMV(id) {
+      this.$router.push(`/mv?id=${id}`);
       this.$parent.pauseMusic();
     },
     // 获取歌曲评论
@@ -206,8 +213,8 @@ export default {
       // 获取歌曲评论
       listComments({
         id,
-        offset: (this.page - 1) * 5
-      }).then(res => {
+        offset: (this.page - 1) * 5,
+      }).then((res) => {
         this.total = res.total;
         this.comments = res.comments;
       });
@@ -217,16 +224,73 @@ export default {
       this.page = val;
       this.getComments();
     },
-    playMusic(id) {
+    playMusic(item) {
       songUrl({
-        id: id
-      }).then(res => {
-        // window.console.log(res)
+        id: item.id,
+      }).then((res) => {
+        // window.console.log(item);
         // this.songUrl = res.data[0].url
         this.$parent.url = res.data[0].url;
-      });
-    }
-  }
+
+        this.$parent.cover = item.al.picUrl;
+        this.$parent.name = item.name;
+        this.$parent.player = item.ar[0].name;
+      }),
+        songLyric({
+          id: item.id,
+        }).then((res) => {
+          console.log(res);
+          // console.log(res.lrc.lyric);
+          if (res.nolyric) {
+            // console.log("没有歌词");
+            this.lrcs = {}
+            this.$parent.lyric = this.lrcs;
+          } else {
+            // console.log("有歌词");
+            this.getly(res.lrc.lyric);
+          }
+        });
+    },
+    getly(lyric) {
+      let lylines = lyric.split("\n");
+      let pattern = /\[\d{2}:\d{2}.\d*\]/g;
+      let result = {};
+
+      for (let i = 0; i < lylines.length; i++) {
+        //保存歌词时间
+        let timeRegArr = lylines[i].match(pattern);
+        if (!timeRegArr) continue; //跳过null
+        // console.log(timeRegArr);
+
+        //获取时间
+        let t = timeRegArr[0];
+        // 正则匹配
+        let min = parseInt(t.match(/\[\d*/i).toString().slice(1));
+        let sec = parseInt(t.match(/:\d*/i).toString().slice(1));
+
+        let time = min * 60 + sec;
+
+        //获取歌词,把时间替换为空，后面的歌词赋给content
+        let content = lylines[i].replace(timeRegArr, "");
+        // console.log(content);
+        result[time] = content;
+        // console.log(result)
+      }
+      this.lrcs = result;
+      this.getAllkeys(this.lrcs);
+      // console.log(lylines);
+
+      // console.log(this.lrcs);
+      this.$parent.lyric = this.lrcs;
+    },
+    getAllkeys(lrc) {
+      this.allKeys = [];
+      for (let key in lrc) {
+        this.allKeys.push(key);
+      }
+      this.$parent.allKeys = this.allKeys;
+    },
+  },
 };
 </script>
 

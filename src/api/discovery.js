@@ -37,3 +37,13 @@ export function songUrl({ id }) {
     }
   });
 }
+
+export function songLyric({ id }) {
+  return request({
+    url: '/lyric',
+    method: 'get',
+    params: {
+      id
+    }
+  });
+}

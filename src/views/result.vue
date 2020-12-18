@@ -21,7 +21,7 @@
               class="el-table__row"
               v-for="(item, index) in songList"
               :key="item.id"
-              @dblclick="rowDbclick(item.id)"
+              @dblclick="rowDbclick(item)"
             >
               <td>{{ index + 1 }}</td>
               <td>
@@ -106,7 +106,7 @@
 
 <script>
 import { search } from '@/api/result';
-import { songUrl } from '@/api/discovery';
+import { songUrl,songLyric  } from '@/api/discovery';
 export default {
   name: 'result',
   data() {
@@ -120,7 +120,9 @@ export default {
       total: 0,
       songList: [],
       playList: [],
-      mvList: []
+      mvList: [],
+      lrcs: [],
+      allKeys: [],
     };
   },
   watch: {
@@ -140,14 +142,71 @@ export default {
       this.$router.push(`/playlist?id=${id}`);
     },
     // 双击某一行
-    rowDbclick(id) {
+    rowDbclick(item) {
       songUrl({
-        id
+        id:item.id
       }).then(res => {
         // window.console.log(res)
         // this.songUrl = res.data[0].url
         this.$parent.url = res.data[0].url;
+         console.log(item)
+        this.$parent.cover = item.artists[0].img1v1Url
+        this.$parent.name = item.name
+        this.$parent.player = item.artists[0].name
+        }),
+      songLyric({
+          id: item.id,
+        }).then((res) => {
+          console.log(res);
+          // console.log(res.lrc.lyric);
+          if (res.nolyric) {
+            // console.log("没有歌词");
+            this.lrcs = {}
+            this.$parent.lyric = this.lrcs;
+          } else {
+            // console.log("有歌词");
+            this.getly(res.lrc.lyric);
+          }
       });
+    },
+    getly(lyric) {
+      let lylines = lyric.split("\n");
+      let pattern = /\[\d{2}:\d{2}.\d*\]/g;
+      let result = {};
+
+      for (let i = 0; i < lylines.length; i++) {
+        //保存歌词时间
+        let timeRegArr = lylines[i].match(pattern);
+        if (!timeRegArr) continue; //跳过null
+        // console.log(timeRegArr);
+
+        //获取时间
+        let t = timeRegArr[0];
+        // 正则匹配
+        let min = parseInt(t.match(/\[\d*/i).toString().slice(1));
+        let sec = parseInt(t.match(/:\d*/i).toString().slice(1));
+
+        let time = min * 60 + sec;
+
+        //获取歌词,把时间替换为空，后面的歌词赋给content
+        let content = lylines[i].replace(timeRegArr, "");
+        // console.log(content);
+        result[time] = content;
+        // console.log(result)
+      }
+      this.lrcs = result;
+      this.getAllkeys(this.lrcs);
+      // console.log(lylines);
+
+      // console.log(this.lrcs);
+      this.$parent.lyric = this.lrcs;
+    },
+    getAllkeys(lrc) {
+      this.allKeys = [];
+      for (let key in lrc) {
+        this.allKeys.push(key);
+      }
+      this.$parent.allKeys = this.allKeys;
     },
     // 去mv页面
     toMV(mvid) {

@@ -8,7 +8,9 @@ import {
   Tabs,
   TableColumn,
   Table,
-  TabPane
+  Button,
+  TabPane,
+  MessageBox,
 } from 'element-ui';
 
 export default {
@@ -17,11 +19,13 @@ export default {
     Vue.use(Loading);
     Vue.use(Carousel);
     Vue.use(CarouselItem);
+    Vue.use(Button);
     Vue.use(Table);
     Vue.use(TableColumn);
     Vue.use(Pagination);
     Vue.use(Tabs);
     Vue.use(TabPane);
     Vue.prototype.$message = Message;
+    Vue.prototype.$confirm = MessageBox;
   }
 };

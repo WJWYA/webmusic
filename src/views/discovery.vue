@@ -107,6 +107,19 @@ export default {
     });
   },
   methods: {
+    //添加音乐到播放列表
+    addToPlayList(item,res){
+      for (let i = 0; i < this.$parent.playingList.length; i++) {
+          if(item.id == this.$parent.playingList[i][0]){
+            // console.log(item.id)
+            this.$parent.playingList.splice(i,1)
+            break
+          }
+          
+          
+        }
+        this.$parent.playingList.push([item.id,item.name,item.song.artists[0].name,res.data[0].url,item.picUrl,])
+    },
     toMv(id) {
       this.$parent.pauseMusic();
 
@@ -119,13 +132,22 @@ export default {
       songUrl({
         id: item.id,
       }).then((res) => {
-        // window.console.log(res)
-        // this.songUrl = res.data[0].url
+        this.addToPlayList(item,res)
+        // for (let i = 0; i < this.$parent.playingList.length; i++) {
+        //   if(item.id == this.$parent.playingList[i][0]){
+        //     // console.log(item.id)
+        //     this.$parent.playingList.splice(i,1)
+        //     break
+        //   }
+          
+          
+        // }
+        // this.$parent.playingList.push([item.id,item.name,item.song.artists[0].name,res.data[0].url,item.picUrl,])
+        // console.log(item)
         this.$parent.url = res.data[0].url;
         this.$parent.cover = item.picUrl;
         this.$parent.name = item.name;
         this.$parent.player = item.song.artists[0].name;
-        // console.log(item)
       }),
         songLyric({
           id: item.id,

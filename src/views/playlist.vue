@@ -203,6 +203,19 @@ export default {
     this.getComments();
   },
   methods: {
+    //添加音乐到播放列表
+    addToPlayList(item,res){
+      for (let i = 0; i < this.$parent.playingList.length; i++) {
+          if(item.id == this.$parent.playingList[i][0]){
+            // console.log(item.id)
+            this.$parent.playingList.splice(i,1)
+            break
+          }
+          
+          
+        }
+        this.$parent.playingList.push([item.id,item.name,item.ar[0].name,res.data[0].url,item.al.picUrl])
+    },
     toMV(id) {
       this.$router.push(`/mv?id=${id}`);
       this.$parent.pauseMusic();
@@ -230,6 +243,7 @@ export default {
       }).then((res) => {
         // window.console.log(item);
         // this.songUrl = res.data[0].url
+        this.addToPlayList(item,res)
         this.$parent.url = res.data[0].url;
 
         this.$parent.cover = item.al.picUrl;

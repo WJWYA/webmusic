@@ -105,13 +105,13 @@
 </template>
 
 <script>
-import { search } from '@/api/result';
-import { songUrl,songLyric  } from '@/api/discovery';
+import { search } from "@/api/result";
+import { songUrl, songLyric } from "@/api/discovery";
 export default {
-  name: 'result',
+  name: "result",
   data() {
     return {
-      type: '1',
+      type: "1",
       // 页容量
       limit: 15,
       // 页码
@@ -127,47 +127,65 @@ export default {
   },
   watch: {
     type: [
-      function() {
-        this.limit = this.type == '1004' ? 12 : 15;
+      function () {
+        this.limit = this.type == "1004" ? 12 : 15;
       },
-      'searchResult'
+      "searchResult",
     ],
-    '$route.query.keywords': 'searchResult'
+    "$route.query.keywords": "searchResult",
   },
   created() {
     this.searchResult();
   },
   methods: {
+    //添加音乐到播放列表
+    addToPlayList(item, res) {
+      for (let i = 0; i < this.$parent.playingList.length; i++) {
+        if (item.id == this.$parent.playingList[i][0]) {
+          // console.log(item.id)
+          this.$parent.playingList.splice(i, 1);
+          break;
+        }
+      }
+      this.$parent.playingList.push([
+        item.id,
+        item.name,
+        item.artists[0].name,
+        res.data[0].url,
+        item.artists[0].img1v1Url,
+      ]);
+    },
     toPlaylist(id) {
       this.$router.push(`/playlist?id=${id}`);
     },
     // 双击某一行
     rowDbclick(item) {
       songUrl({
-        id:item.id
-      }).then(res => {
+        id: item.id,
+      }).then((res) => {
         // window.console.log(res)
         // this.songUrl = res.data[0].url
+        this.addToPlayList(item, res)
         this.$parent.url = res.data[0].url;
-         console.log(item)
-        this.$parent.cover = item.artists[0].img1v1Url
-        this.$parent.name = item.name
-        this.$parent.player = item.artists[0].name
-        }),
-      songLyric({
+        // console.log(item);
+        this.$parent.cover = item.artists[0].img1v1Url;
+        this.$parent.name = item.name;
+        this.$parent.player = item.artists[0].name;
+      }),
+        songLyric({
           id: item.id,
         }).then((res) => {
           console.log(res);
           // console.log(res.lrc.lyric);
           if (res.nolyric) {
             // console.log("没有歌词");
-            this.lrcs = {}
+            this.lrcs = {};
             this.$parent.lyric = this.lrcs;
           } else {
             // console.log("有歌词");
             this.getly(res.lrc.lyric);
           }
-      });
+        });
     },
     getly(lyric) {
       let lylines = lyric.split("\n");
@@ -225,16 +243,16 @@ export default {
         limit,
         type,
         keywords,
-        offset: (this.page - 1) * limit
-      }).then(res => {
+        offset: (this.page - 1) * limit,
+      }).then((res) => {
         // window.console.log(res)
         // 根据类型不同
         switch (this.type) {
-          case '1':
+          case "1":
             this.songList = res.result.songs;
             this.total = res.result.songCount;
             break;
-          case '1000':
+          case "1000":
             this.playList = res.result.playlists;
             this.total = res.result.playlistCount;
             break;
@@ -245,8 +263,8 @@ export default {
             break;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -11,7 +11,7 @@ html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 a {
   text-decoration: none;
@@ -23,7 +23,23 @@ ol {
 .iconfont {
   cursor: pointer;
 }
+.el-button--text{
+  color: white!important;
+  
 
+  &:hover{
+    color:#e7bd12!important
+  }
+}
+.el-button--primary {
+  color: #FFF;
+  background-color: #efca35;
+  border-color: #efca35;
+  &:hover{
+    background-color: #e7bd12;
+  border-color: #e7bd12;
+  }
+}
 .el-input>input{
   border:5px;
   border-radius: 20px;
@@ -1131,6 +1147,7 @@ ol {
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 1000;
     width: 100%;
   }
   audio {
@@ -1202,6 +1219,24 @@ ol {
       }
     }
   }
+  // .center-box{
+    
+  //   align-items: center;
+  //   // position: relative;
+  //   width: 100%;
+  //   // background-color: #84bb58;
+  //   // text-align: center;
+  //   span{
+  //     position: absolute;
+  //     color: white;
+  //     font-size: 20px;
+  //     font-weight: bolder;
+  //     font-family: 'Courier New', Courier, monospace;
+  //     top:50%;
+  //     left:40%;
+  //     transform: translate(50%,-50%);
+  //   }
+  // }
   .right-box {
     display: flex;
     align-items: center;

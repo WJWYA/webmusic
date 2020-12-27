@@ -456,8 +456,10 @@ export default {
     }
     &:hover .player {
       background-color: aqua;
-      left: -100px;
+      left: -110px;
       color: white;
+      opacity: 0.9;
+      
     }
     .icon-yinle {
       height: 30px;
@@ -479,11 +481,11 @@ export default {
     }
     .player-wrap {
       height: 30px;
-      width: 100px;
+      width: 120px;
       position: absolute;
       // left: 5px;
 
-      right: 195px;
+      right: 175px;
       .player {
         text-align: center;
         position: absolute;
@@ -492,6 +494,7 @@ export default {
         background-color: #ebc119;
         z-index: -1;
         overflow: hidden;
+        border-radius: 20px;
       }
     }
     .songname {

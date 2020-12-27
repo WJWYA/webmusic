@@ -87,8 +87,9 @@
       <span>&nbsp;列表</span>
     </div>
     <!-- 列表内容 -->
-    <div :class="[playing_list_style]" id="playingList" @mouseleave="closeplayingList">
+    <div :class="[playing_list_style]" id="playingList">
       <div class="playing-list-top">
+        <span class="iconfont icon-guanbi" @click="closeplayingList"></span>
         <span>播放列表：共{{ playingList.length + 1 }}首</span
         ><el-button type="text" @click="open"
           ><span class="iconfont icon-shanchu"></span
@@ -426,9 +427,14 @@ export default {
   height: 50px;
   line-height: 50px;
   border-bottom: 2px solid white;
-  :nth-child(2) {
+  :nth-child(1) {
+    color: #ebc119;
+    margin-right: 10px;
+  }
+  :nth-child(3) {
     position: absolute;
     right: 20px;
+    top:5px;
   }
 }
 .playing-list-bottom {
@@ -485,6 +491,7 @@ export default {
         height: 30px;
         background-color: #ebc119;
         z-index: -1;
+        overflow: hidden;
       }
     }
     .songname {

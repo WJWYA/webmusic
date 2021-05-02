@@ -159,7 +159,7 @@ export default {
       url:
         "https://node.kg.qq.com/cgi/fcgi-bin/fcg_get_play_url?shareid=Z-FyqFZ72XM4FZsz",
       cover:
-        "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1557884870,2359719609&fm=11&gp=0.jpg",
+        "https://z3.ax1x.com/2021/05/02/gZ5PC4.jpg",
       name: "燕无歇",
       player: "王洋",
       currentTime: "",
@@ -188,7 +188,7 @@ export default {
       this.url =
         "https://node.kg.qq.com/cgi/fcgi-bin/fcg_get_play_url?shareid=Z-FyqFZ72XM4FZsz";
       this.cover =
-        "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1557884870,2359719609&fm=11&gp=0.jpg";
+        "https://z3.ax1x.com/2021/05/02/gZ5PC4.jpg";
       this.name = "燕无歇";
       this.player = "王洋";
       this.lrcs = {};
